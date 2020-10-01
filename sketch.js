@@ -1,67 +1,69 @@
+let lolChampions = [
+  {
+    name: "Ashe",
+    weapon: "Bow and Arrow"
+  },
+  {
+    name: "Garen",
+    weapon: "Sword"
+  },
+  {
+    name: "Teemo",
+    weapon: "Poison Dart Gun"
+  },
+  {
+    name: "Volibear",
+    weapon: "Lightning Ability"
+  },
+  {
+    name: "Annie",
+    weapon: "Tibbers Doll"
+  }
+];
 
-let lolChampions = [{
-
-  name: "Ashe",
-  ability: "Arrow"
-},{
-  name: "Garen",
-  ability: "Sword"
-
-},{
-  name: "Teemo",
-  ability: "Poison"
-
-},{
-  name: "Volibear",
-  ability: "Lightning"
-
-},{
-  name: "Annie",
-  ability: "Tibers"
-
-}];
-
-let randomIndex;
 let animating = false;
+let margin = 40;
+let boxWidth;
+let boxHeight;
 
 function setup() {
   createCanvas(400, 400);
+  boxWidth = width - (margin * 2);
+  boxHeight = height - (margin * 2);
+  background(random(135, 176), random(206, 224), random(230, 250));
   textSize(32);
-  text ("Click to Randomize", 50,50);
-
-
-
+  textAlign(CENTER, CENTER);
+  printText("Click to Randomize");
 }
 
 function draw() {
-
-  if(animating==true){
-    ellipse(random(width), random(height), random(50,100));
-    }
-
+  if (animating == true) {
+    fill(random(152), random(188, 255), random(127, 152));
+    ellipse(random(width), random(height), random(50, 100));
+  }
 }
 
-function randomizer(){
+function mousePressed() {
+  animating = true;
+  setTimeout(randomizer, 2000);
+}
+
+function randomizer() {
   animating = false;
-  background(random (200,255),0,0);
-  if (lolChampions.length >0){
-
-    randomIndex= int(random(lolChampions.length));
-    text(`${lolChampions[randomIndex].name} 's ability
-      ${lolChampions[randomIndex].ability}`,50,50);
-
-    lolChampions.splice(randomIndex, 1);
+  background(random(135, 176), random(206, 224), random(230, 250));
+  fill(0);
+  if (lolChampions.length > 0) {
+    index = int(random(lolChampions.length));
+    sentence = lolChampions[index].name + " uses a\n"
+      + lolChampions[index].weapon + "!";
+    printText(sentence);
+    lolChampions.splice(index, 1);
   }
   else {
-    text("Nothing Left!", 50, 50)
+    printText("You have no more champions!");
   }
 }
 
-
-
-function mousePressed(){
-  animating = true;
-  setTimeout(randomizer,2000);
-
-
+function printText(string) {
+  text(string, margin, margin, boxWidth, boxHeight);
 }
